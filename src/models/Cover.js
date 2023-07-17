@@ -22,5 +22,5 @@ CoverSchema.plugin(mongoosePaginate)
 
 
 
-const Cover = mongoose.model('cover', CoverSchema);
+const Cover = mongoose.model('coverletter', CoverSchema);
 module.exports = Cover;

@@ -12,7 +12,7 @@ mongoose
         console.log('');
     })
     .catch((err) => {
-        console.log('');
+        console.log(err);
         console.log(
             '********** \x1b[31mMissing DB Connection\x1b[0m ***********',
         );
