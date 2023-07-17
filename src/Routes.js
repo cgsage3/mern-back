@@ -1,6 +1,8 @@
 const Utilities = require('./Utilities');
 const express = require('express');
 const Route = express.Router();
+const puppeteer = require('puppeteer'); // Adding Puppeteer
+const path = require('path');
 
 const AuthController = require('./controllers/AuthController');
 const CrudController = require('./controllers/CrudController')
@@ -9,9 +11,8 @@ const CrudController = require('./controllers/CrudController')
  */
 Route.route('/')
     .get((req, res) =>
-        Utilities.apiResponse(res, 200, 'Create MERN App', {
-            By: 'Vijay Pratap Singh',
-            postmanCollection: 'https://documenter.getpostman.com/view/9986684/UzJFuJBi'
+        Utilities.apiResponse(res, 200, 'Cover Letter MERN App', {
+            By: 'Cesar Granda',
         }),
     )
     .all(Utilities.send405);
@@ -32,6 +33,10 @@ Route.route('/api/v1/signup')
     .post(AuthController.signup)
     .all(Utilities.send405);
 
+Route.route('/api/v1/addCover')
+    .post(AuthController.addCover)
+    .all(Utilities.send405);
+
 Route.route('/api/v1/users/:userId?')
     .post(CrudController.create)
     .get(CrudController.read)
@@ -43,4 +48,34 @@ Route.route('/api/v1/covers/:coverName?')
     .get(CrudController.readCover)
     .all(Utilities.send405);
 
+
+Route.use('/api/v1/pdf/covers/:id', (req, res, next) => {
+    // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
+    url="http://localhost:3000/covers/only/" + req.params.id;
+    loc="public/cover"+req.params.id+".pdf";
+    console.log(url);
+    (async () => {
+        const browser = await puppeteer.launch({});
+        const cPage = await browser.newPage();
+
+
+        await cPage.goto(url, {
+            waitUntil: "networkidle0"
+        });
+
+        await cPage.pdf({
+            path: loc,
+            format: "Letter",
+            printBackground: true
+        });
+
+        await browser.close();
+    })();
+    res.send('Printing Pdf');
+    next()
+}, (req, res, next) => {
+  res.send('Done printing')
+  next()
+})
+Route.use(express.static('public'))
 module.exports = Route;

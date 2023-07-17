@@ -1,5 +1,6 @@
 const Utilities = require('../Utilities');
 const User = require('../models/User');
+const Cover = require('../models/Cover');
 
 class AuthController {
 
@@ -54,6 +55,33 @@ class AuthController {
             };
             const accessToken = await Utilities.signAccessToken(data);
             Utilities.apiResponse(res, 200, 'User Created Successfully!', {
+                ...data,
+                accessToken,
+            });
+        } catch (error) {
+            Utilities.apiResponse(res, 500, error);
+        }
+    }
+    async addCover(req, res) {
+        try {
+            const doesExist = await Cover.findOne({ coverName: req.body.coverName });
+            if (doesExist) {
+                return Utilities.apiResponse(
+                    res,
+                    422,
+                    'Cover Letter already exists',
+                );
+            }
+            const cover = new Cover(req.body);
+            const savedCover = await cover.save();
+            const data = {
+                _id: savedCover._id,
+                coverName: savedCover.coverName,
+                dear: savedCover.dear,
+                letter: savedCover.letter,
+            };
+            const accessToken = await Utilities.signAccessToken(data);
+            Utilities.apiResponse(res, 200, 'Cover Created Successfully!', {
                 ...data,
                 accessToken,
             });
