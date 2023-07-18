@@ -12,7 +12,7 @@ const CoverSchema = new Schema(
         dear: {
             type: String,
             required: true,            
-        }
+        },
         letter: {
             type: String,
             required: true,
