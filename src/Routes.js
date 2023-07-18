@@ -51,7 +51,7 @@ Route.route('/api/v1/covers/:coverName?')
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
     // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
-    url="https://cover-letter-mern-front.onrender.com/covers/" + req.params.id + "?coveronly=true";
+    url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
     loc="public/uploads/cover"+req.params.id+".pdf";
     console.log(url);
     (async () => {
