@@ -46,6 +46,7 @@ Route.route('/api/v1/users/:userId?')
 
 Route.route('/api/v1/covers/:coverName?')
     .get(CrudController.readCover)
+    .delete(CrudController.deleteCover)
     .all(Utilities.send405);
 
 
