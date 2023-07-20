@@ -80,9 +80,8 @@ class CrudController {
 
     async deleteCover(req, res) {
         try {
-            // await User.findOneAndDelete({ _id: req.body.user_id }, req.body)
             await Cover.find({ _id: req.params.coverId }).remove().exec();
-            Utilities.apiResponse(res, 200, 'User Deleted Successfully')
+            Utilities.apiResponse(res, 200, 'Cover Deleted Successfully')
         } catch (error) {
             Utilities.apiResponse(res, 500, error)
         }

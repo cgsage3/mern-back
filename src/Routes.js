@@ -49,6 +49,10 @@ Route.route('/api/v1/covers/:coverName?')
     .delete(CrudController.deleteCover)
     .all(Utilities.send405);
 
+Route.route('/api/v1/del/covers/:coverId?')
+    .delete(CrudController.deleteCover)
+    .all(Utilities.send405);
+
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
     // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
