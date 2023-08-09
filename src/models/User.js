@@ -23,6 +23,15 @@ const UserSchema = new Schema(
     { timestamps: { currentTime: () => Date.now() } },
 );
 
+UserSchema.virtual('coversPublished', {
+   ref: 'coverletters', //The Model to use
+   localField: '_id', //Find in Model, where localField 
+   foreignField: 'user', // is equal to foreignField
+});
+// Set Object and Json property to true. Default is set to false
+UserSchema.set('toObject', { virtuals: true });
+UserSchema.set('toJSON', { virtuals: true });
+
 UserSchema.plugin(mongoosePaginate)
 
 UserSchema.pre('save', async function (next) {

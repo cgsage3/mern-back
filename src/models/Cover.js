@@ -17,14 +17,16 @@ const CoverSchema = new Schema(
             type: String,
             required: true,
         },
-
-    },
-    { timestamps: { currentTime: () => Date.now() } },
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "user",
+        }
+    }
 );
 
 CoverSchema.plugin(mongoosePaginate)
 
 
 
-const Cover = mongoose.model('coverletter', CoverSchema);
+const Cover = mongoose.model('coverletters', CoverSchema);
 module.exports = Cover;
