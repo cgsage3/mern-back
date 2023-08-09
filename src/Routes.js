@@ -33,10 +33,6 @@ Route.route('/api/v1/signup')
     .post(AuthController.signup)
     .all(Utilities.send405);
 
-Route.route('/api/v1/addCover')
-    .post(AuthController.addCover)
-    .all(Utilities.send405);
-
 Route.route('/api/v1/users/:userId?')
     .post(CrudController.create)
     .get(CrudController.read)
@@ -44,18 +40,30 @@ Route.route('/api/v1/users/:userId?')
     .delete(CrudController.delete)
     .all(Utilities.send405);
 
-Route.route('/api/v1/covers/:coverName?')
-    .get(CrudController.readCover)
+
+Route.route('/api/v1/covers/:coverId?')
+    .post(CrudController.addCover)
     .delete(CrudController.deleteCover)
+    .get(CrudController.readCover)
     .all(Utilities.send405);
 
-Route.route('/api/v1/del/covers/:coverId?')
-    .delete(CrudController.deleteCover)
+// Route.route('/api/v1/addCover')
+//     .all(Utilities.send405);
+
+// Route.route('/api/v1/covers/:coverName?')
+    
+//     // .delete(CrudController.deleteCover)
+//     .all(Utilities.send405);
+
+Route.route('/api/v1/some/:id?')
+    .get(CrudController.readCoverUser)
     .all(Utilities.send405);
+
 
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
     // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
+    // url="http://localhost:3000/covers/only/" + req.params.id;
     url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
     loc="public/uploads/cover"+req.params.id+".pdf";
     console.log(url);

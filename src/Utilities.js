@@ -4,7 +4,7 @@ const apiResponse = (res, status, message, data) => {
         newMessage = message?.message || message;
     } else {
         if (message.message) {
-            newMessage = 'somthing went wroung please try again later';
+            newMessage = 'somthing went wrong please try again later';
         } else {
             newMessage = message;
         }
