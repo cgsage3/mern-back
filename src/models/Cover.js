@@ -7,15 +7,12 @@ const CoverSchema = new Schema(
     {
         coverName: {
             type: String,
-            required: true,
         },
         dear: {
             type: String,
-            required: true,            
         },
         letter: {
             type: String,
-            required: true,
         },
         user: {
             type: Schema.Types.ObjectId,

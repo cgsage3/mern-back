@@ -47,24 +47,24 @@ Route.route('/api/v1/covers/:coverId?')
     .get(CrudController.readCover)
     .all(Utilities.send405);
 
-// Route.route('/api/v1/addCover')
-//     .all(Utilities.send405);
+Route.route('/api/v1/c/:coverId?')
+    .put(CrudController.updateCover)
+    .all(Utilities.send405);
 
-// Route.route('/api/v1/covers/:coverName?')
-    
-//     // .delete(CrudController.deleteCover)
-//     .all(Utilities.send405);
-
-Route.route('/api/v1/some/:id?')
+Route.route('/api/v1/publish/:id?')
     .get(CrudController.readCoverUser)
+    .all(Utilities.send405);
+
+Route.route('/api/v1/publishAll/:id?')
+    .get(CrudController.readCoverUserAll)
     .all(Utilities.send405);
 
 
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
     // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
-    // url="http://localhost:3000/covers/only/" + req.params.id;
-    url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
+    url="http://localhost:3000/covers/only/" + req.params.id;
+    // url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
     loc="public/uploads/cover"+req.params.id+".pdf";
     console.log(url);
     (async () => {

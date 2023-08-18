@@ -28,6 +28,15 @@ UserSchema.virtual('coversPublished', {
    localField: '_id', //Find in Model, where localField 
    foreignField: 'user', // is equal to foreignField
 });
+
+UserSchema.virtual('coversPublishedAll', {
+   ref: 'coverletters', //The Model to use
+   localField: '_id', //Find in Model, where localField 
+   foreignField: 'user', // is equal to foreignField
+   count: true // And only get the number of docs
+});
+
+
 // Set Object and Json property to true. Default is set to false
 UserSchema.set('toObject', { virtuals: true });
 UserSchema.set('toJSON', { virtuals: true });
