@@ -63,9 +63,9 @@ Route.route('/api/v1/publishAll/:id?')
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
     // Launching the Puppeteer controlled headless browser and navigate to the Digimon website
-    // url="http://localhost:3000/covers/only/" + req.params.id;
-    url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
-    loc="public/uploads/cover"+req.params.id+".pdf";
+    url=`${process.env.FRONT_URL}/covers/only/` + req.params.id;
+    // url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
+    loc="public/uploads/cover-"+req.params.id+".pdf";
     console.log(url);
     (async () => {
         const browser = await puppeteer.launch({});
@@ -83,10 +83,10 @@ Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
         });
 
         await browser.close();
-    })();
-}, (req, res, next) => {
-  res.send('Done printing')
-  next()
+    })()
+    // res.json({ message: 'Hello World' });
+    next()
+
 })
 Route.use(express.static('public'))
 module.exports = Route;
