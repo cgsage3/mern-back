@@ -6,6 +6,8 @@ const path = require('path');
 
 const AuthController = require('./controllers/AuthController');
 const CrudController = require('./controllers/CrudController')
+const CoverController = require('./controllers/CoverController')
+const ExperienceController = require('./controllers/ExperienceController')
 /**
  * APIs V1 Routes
  */
@@ -42,23 +44,27 @@ Route.route('/api/v1/users/:userId?')
 
 
 Route.route('/api/v1/covers/:coverId?')
-    .post(CrudController.addCover)
-    .delete(CrudController.deleteCover)
-    .get(CrudController.readCover)
+    .post(CoverController.addCover)
+    .delete(CoverController.deleteCover)
+    .get(CoverController.readCover)
     .all(Utilities.send405);
 
 Route.route('/api/v1/c/:coverId?')
-    .put(CrudController.updateCover)
+    .put(CoverController.updateCover)
     .all(Utilities.send405);
 
 Route.route('/api/v1/publish/:id?')
-    .get(CrudController.readCoverUser)
+    .get(CoverController.readCoverUser)
     .all(Utilities.send405);
 
 Route.route('/api/v1/publishAll/:id?')
-    .get(CrudController.readCoverUserAll)
+    .get(CoverController.readCoverUserAll)
     .all(Utilities.send405);
 
+
+Route.route('/api/v1/add-experience/:experienceId?')
+    .post(ExperienceController.addExperience)
+    .all(Utilities.send405);
 
 
 Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
