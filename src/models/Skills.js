@@ -2,23 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const mongoosePaginate = require('mongoose-paginate-v2');
 
-const ExperienceSchema = new Schema(
+const SkillsSchema = new Schema(
 	{
-		year: {
+		category: {
 			type: String,
 			required: true,
 		},
-		position: {
+		skills: {
 			type: String,
 			required: true,
-		},
-		companyName: {
-			type: String,
-			required: true,
-			unique: true,
-		},
-		details: {
-			type: [String],
 		},
 		user: {
 			type: Schema.Types.ObjectId,
@@ -28,9 +20,9 @@ const ExperienceSchema = new Schema(
 	{ timestamps: { currentTime: () => Date.now() } },
 );
 
-ExperienceSchema.plugin(mongoosePaginate)
+SkillsSchema.plugin(mongoosePaginate)
 
 
 
-const Experience = mongoose.model('Experience', ExperienceSchema);
-module.exports = Experience;
+const Skills = mongoose.model('Skills', SkillsSchema);
+module.exports = Skills;
