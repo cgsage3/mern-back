@@ -15,6 +15,10 @@ class BioController {
 			// await user.save();
 			const data = {
 				_id: savedBio._id,
+				phone: savedBio.phone,
+				email: savedBio.email,
+				website: savedBio.website,
+				address: savedBio.address,
 				biography: savedBio.biography,
 				user: user
 			};
@@ -40,12 +44,11 @@ class BioController {
 				limit: req.query?.limit || 10,
 			};
 			let bio = []
-			console.log(req.params);
 			if (req.params.bioId) {
 				bio = await Bio.findOne({ _id: req.params.bioId })
 			} else {
-				bio = await Bio.paginate({}, options)
-			}
+				bio = await Bio.find().sort({ createdAt: -1 }).limit(1);
+			};
 			Utilities.apiResponse(res, 200, 'Get Bio Successfully', bio)
 		} catch (error) {
 			Utilities.apiResponse(res, 500, error)

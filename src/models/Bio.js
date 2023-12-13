@@ -4,6 +4,22 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const BioSchema = new Schema(
 	{
+		phone: {
+			type: Number,
+			required: true,
+		},
+		email: {
+			type: String,
+			required: true,
+		},
+		website: {
+			type: String,
+			required: true,
+		},
+		address: {
+			type: String,
+			required: true,
+		},
 		biography: {
 			type: String,
 			required: true,
