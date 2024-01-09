@@ -112,6 +112,30 @@ Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
 	// res.json({ message: 'Hello World' });
 	next()
 
-})
-Route.use(express.static('public'))
+});
+Route.use('/api/v1/pdf/resume', (req, res, next) => {
+	url = `${process.env.FRONT_URL}/view-resume/only`;
+	loc = "public/uploads/resume.pdf";
+	console.log(url);
+	(async () => {
+		const browser = await puppeteer.launch({ headless: true });
+		const resumePage = await browser.newPage();
+
+
+		await resumePage.goto(url, {
+			waitUntil: "networkidle0"
+		});
+
+		await resumePage.pdf({
+			path: loc,
+			format: "Letter",
+		});
+
+		await browser.close();
+	})()
+	// res.json({ message: 'Hello World' });
+	next()
+
+});
+Route.use(express.static('public'));
 module.exports = Route;
