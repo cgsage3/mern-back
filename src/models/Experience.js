@@ -32,5 +32,5 @@ ExperienceSchema.plugin(mongoosePaginate)
 
 
 
-const Experience = mongoose.model('Experience', ExperienceSchema);
+const Experience = mongoose.model('ExperienceNew', ExperienceSchema);
 module.exports = Experience;
