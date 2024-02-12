@@ -16,7 +16,7 @@ out/
 # production
 build
 production
-public/uploads/**/
+public/uploads/
 
 # misc
 .DS_Store
