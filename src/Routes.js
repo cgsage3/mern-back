@@ -50,6 +50,7 @@ Route.route('/api/v1/covers/:coverId?')
 	.post(CoverController.addCover)
 	.delete(CoverController.deleteCover)
 	.get(CoverController.readCover)
+	.put(CoverController.updateCover)
 	.all(Utilities.send405);
 
 Route.route('/api/v1/c/:coverId?')
@@ -70,9 +71,15 @@ Route.route('/api/v1/experience/:experienceId?')
 	.get(ExperienceController.readExperience)
 	.all(Utilities.send405);
 
+Route.route('/api/v1/bioAll/')
+	.get(BioController.readBioUserAll)
+	.all(Utilities.send405);
+
+
 Route.route('/api/v1/bio/:bioId?')
 	.post(BioController.addBio)
 	.get(BioController.readBio)
+	.put(BioController.updateBio)
 	.all(Utilities.send405);
 
 Route.route('/api/v1/education/:educationId?')

@@ -45,7 +45,9 @@ class BioController {
 			};
 			let bio = []
 			if (req.params.bioId) {
+				console.log(req.params);
 				bio = await Bio.findOne({ _id: req.params.bioId })
+				console.log(bio);
 			} else {
 				bio = await Bio.find().sort({ createdAt: -1 }).limit(1);
 			};
@@ -54,17 +56,56 @@ class BioController {
 			Utilities.apiResponse(res, 500, error)
 		}
 	}
-
-	async update(req, res) {
+	async updateBio(req, res) {
 		try {
-			const doesExist = await User.findOne({ email: req.body.email })
-			if (doesExist) return Utilities.apiResponse(res, 422, 'Email is already been registered')
-			await User.findOneAndUpdate({ _id: req.body.user_id }, req.body)
-			Utilities.apiResponse(res, 200, 'User Has Been Updated Successfully')
+
+			const data = {
+				_id: req.params.bioId,
+				phone: req.body.phone,
+				email: req.body.email,
+				website: req.body.website,
+				address: req.body.address,
+				biography: req.body.biography,
+			};
+			// const Bio = new Bio(req.body);
+			// const savedBio = await Bio.save();  
+			await Bio.updateOne({ _id: req.params.bioId }, data)
+
+			// console.log(req.body);
+
+			Utilities.apiResponse(res, 200, 'Bio updated Successfully!', {
+				...data,
+				// accessToken,
+			});
 		} catch (error) {
 			Utilities.apiResponse(res, 500, error)
 		}
 	}
+	async readBioUserAll(req, res) {
+		try {
+			const options = {
+				page: req.query?.page || 1,
+				limit: req.query?.limit || 10,
+			};
+			let bios = []
+
+			bios = await Bio.paginate({}, options)
+			Utilities.apiResponse(res, 200, 'Get Bio Successfully', bios)
+		} catch (error) {
+			Utilities.apiResponse(res, 500, error)
+		}
+	}
+
+	// async update(req, res) {
+	// 	try {
+	// 		const doesExist = await User.findOne({ email: req.body.email })
+	// 		if (doesExist) return Utilities.apiResponse(res, 422, 'Email is already been registered')
+	// 		await User.findOneAndUpdate({ _id: req.body.user_id }, req.body)
+	// 		Utilities.apiResponse(res, 200, 'User Has Been Updated Successfully')
+	// 	} catch (error) {
+	// 		Utilities.apiResponse(res, 500, error)
+	// 	}
+	// }
 
 	async delete(req, res) {
 		try {
