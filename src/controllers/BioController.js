@@ -47,7 +47,6 @@ class BioController {
 			if (req.params.bioId) {
 				console.log(req.params);
 				bio = await Bio.findOne({ _id: req.params.bioId })
-				console.log(bio);
 			} else {
 				bio = await Bio.find().sort({ createdAt: -1 }).limit(1);
 			};
