@@ -82,6 +82,9 @@ Route.route('/api/v1/bio/:bioId?')
 	.put(BioController.updateBio)
 	.all(Utilities.send405);
 
+Route.route('/api/v1/bioUser/:id?')
+	.get(BioController.readBioUser)
+
 Route.route('/api/v1/education/:educationId?')
 	.post(EducationController.addEducation)
 	.get(EducationController.readEducation)

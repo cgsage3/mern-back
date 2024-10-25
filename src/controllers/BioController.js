@@ -35,7 +35,34 @@ class BioController {
 			Utilities.apiResponse(res, 500, error);
 		}
 	}
+	async readBioUser(req, res) {
+		try {
+			// const options = {
+			//     page: req.query?.page || 1,
+			//     limit: req.query?.limit || 10,
+			// };
+			const page = req.query?.page || 1; // Specify the page number you want to retrieve
+			const perPage = req.query?.limit || 2; // Specify the number of covers per page            
+			let covers = []
+			covers = await User
+				.findOne({ _id: req.params.id }, '_id')
+				.populate(
+					{
+						path: 'userBio',
+						select: 'phone email website address biography',
+						options: {
+							skip: (page - 1) * perPage,
+							limit: perPage
+						}
+					}
+				);
 
+			console.log(covers);
+			Utilities.apiResponse(res, 200, 'Get Bios from User Successfully', covers)
+		} catch (error) {
+			Utilities.apiResponse(res, 500, error)
+		}
+	}
 	async readBio(req, res) {
 
 		try {
