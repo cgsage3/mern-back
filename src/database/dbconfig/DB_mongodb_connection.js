@@ -3,7 +3,7 @@ const ENV = require('./DB_config');
 mongoose.Promise = global.Promise;
 
 mongoose
-	.connect(ENV.MONGO_URI,
+	.connect("mongodb+srv://Granar123:Granar123@cgresume.cieo048.mongodb.net/?retryWrites=true&w=majority",
 		{
 			useNewUrlParser: true,
 			useUnifiedTopology: true
