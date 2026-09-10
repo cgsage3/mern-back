@@ -6,7 +6,8 @@ mongoose
 	.connect(ENV.MONGO_URI,
 		{
 			useNewUrlParser: true,
-			useUnifiedTopology: true
+			useUnifiedTopology: true,
+			serverSelectionTimeoutMS: 5000
 		}
 	)
 	.then(() => {
