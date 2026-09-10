@@ -1,7 +1,6 @@
 const Utilities = require('./Utilities');
 const express = require('express');
 const Route = express.Router();
-const puppeteer = require('puppeteer'); // Adding Puppeteer
 const path = require('path');
 
 const AuthController = require('./controllers/AuthController');
@@ -93,56 +92,5 @@ Route.route('/api/v1/skills/:skillsId?')
 	.get(SkillsController.readSkills)
 	.all(Utilities.send405);
 
-Route.use('/api/v1/pdf/covers/:id?', (req, res, next) => {
-	// Launching the Puppeteer controlled headless browser and navigate to the Digimon website
-	url = `${process.env.FRONT_URL}/covers/only/` + req.params.id;
-	// url="https://cover-letter-mern-front.onrender.com/covers/only/" + req.params.id;
-	loc = "public/uploads/cover-" + req.params.id + ".pdf";
-	console.log(url);
-	(async () => {
-		const browser = await puppeteer.launch({});
-		const cPage = await browser.newPage();
-
-
-		await cPage.goto(url, {
-			waitUntil: "networkidle0"
-		});
-
-		await cPage.pdf({
-			path: loc,
-			format: "Letter",
-			printBackground: true
-		});
-
-		await browser.close();
-	})()
-	// res.json({ message: 'Hello World' });
-	next()
-
-});
-Route.use('/api/v1/pdf/resume', (req, res, next) => {
-	url = `${process.env.FRONT_URL}/view-resume/only`;
-	loc = "public/uploads/resume.pdf";
-	console.log(url);
-	(async () => {
-		const browser = await puppeteer.launch({ headless: true });
-		const resumePage = await browser.newPage();
-
-
-		await resumePage.goto(url, {
-			waitUntil: "networkidle0"
-		});
-
-		await resumePage.pdf({
-			path: loc,
-			format: "Letter",
-		});
-
-		await browser.close();
-	})()
-	// res.json({ message: 'Hello World' });
-	next()
-
-});
 Route.use(express.static('public'));
 module.exports = Route;
